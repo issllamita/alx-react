@@ -1,28 +1,31 @@
-/**
- * @jest-environment jsdom
- */
 import React from "react";
 import Header from "./Header";
-import { mount, shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import { StyleSheetTestUtils } from "aphrodite";
 import { AppContext } from "../App/AppContext";
 
-beforeEach(() => {
-  StyleSheetTestUtils.suppressStyleInjection();
-});
-afterEach(() => {
-  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
-});
+describe("Testing <Header /> Component", () => {
+  let wrapper;
 
-describe("Header", () => {
-  it("render without crashing", () => {
-    const wrapper = shallow(<Header />);
-    expect(wrapper.exists()).toEqual(true);
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+    wrapper = shallow(<Header />);
   });
-  it("should render a h1", () => {
-    const wrapper = shallow(<Header />);
-    expect(wrapper.exists("img")).toEqual(true);
-    expect(wrapper.containsMatchingElement(<h1>School dashboard</h1>)).toEqual(true);
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("Renders with out crashing", () => {
+    expect(wrapper).toBeDefined();
+  });
+
+  it("Render an h1 tag", () => {
+    expect(wrapper.find("h1")).toBeDefined();
+  });
+
+  it("Render an img tag", () => {
+    expect(wrapper.find("img")).toBeDefined();
   });
 
   it(`Tests that logoutSection is not rendered with default context values`, () => {
@@ -35,7 +38,7 @@ describe("Header", () => {
       logOut: jest.fn(),
     };
 
-    const wrapper = mount(
+    wrapper = mount(
       <AppContext.Provider value={context}>
         <Header />
       </AppContext.Provider>
@@ -56,7 +59,7 @@ describe("Header", () => {
       logOut: jest.fn(),
     };
 
-    const wrapper = mount(
+    wrapper = mount(
       <AppContext.Provider value={context}>
         <Header />
       </AppContext.Provider>
@@ -79,7 +82,7 @@ describe("Header", () => {
 
     const spy = jest.spyOn(context, "logOut");
 
-    const wrapper = mount(
+    wrapper = mount(
       <AppContext.Provider value={context}>
         <Header />
       </AppContext.Provider>

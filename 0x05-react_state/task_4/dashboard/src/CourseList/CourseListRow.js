@@ -13,7 +13,10 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   };
 
   return (
-    <tr style={selected_style} className={checked ? css(rowsStyles.rowChecked) : ""}>
+    <tr
+      style={selected_style}
+      className={checked ? css(rowsStyles.rowChecked) : ""}
+    >
       {isHeader ? (
         textSecondCell === null ? (
           <th colSpan="2" className={css(rowsStyles.thcenter)}>
